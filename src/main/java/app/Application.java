@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import controller.AnyaController;
 
-@SpringBootApplication(scanBasePackages = { "app.services", "app.services.impl", "app.beans" })
+@SpringBootApplication(scanBasePackages = { "app.services", "app.beans" })
 @ComponentScan(basePackageClasses = AnyaController.class)
 public class Application {
 
