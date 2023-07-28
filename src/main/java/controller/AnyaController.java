@@ -39,9 +39,10 @@ import app.beans.Repo;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AnyaController {
-	@Autowired
+
 	private final Repo repo;
 
+	@Autowired
 	public AnyaController(Repo repo) {
 		this.repo = repo;
 	}
