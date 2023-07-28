@@ -47,12 +47,12 @@ public class AnyaController {
 		this.repo = repo;
 	}
 
-	@GetMapping("/getUsers")
+	@GetMapping("/users")
 	public List<User> getUsers() {
 		return (List<User>) repo.findAll();
 	}
 
-	@PostMapping("/addUser")
+	@PostMapping("/users")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
 		repo.save(user);
 		return new ResponseEntity<>("Added user", HttpStatus.OK);

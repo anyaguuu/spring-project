@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../model/user';
+import { UserService } from '../service/user.service'
 
 @Component({
   selector: 'app-user-list',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  constructor() { }
+  users: User[];
 
-  ngOnInit() {
+  constructor(private userService: UserService) {
   }
 
+  /**
+   * Uses the UserService's findAll() method to fetch all the entities persisted
+   *  in the database and stores them in the users field.
+   */
+  ngOnInit() {
+    this.userService.findAll().subscribe(data => {
+      this.users = data;
+    });
+  }
 }
