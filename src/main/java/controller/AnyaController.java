@@ -214,6 +214,8 @@ public class AnyaController {
 	@PostMapping(value = "/handleFiles", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> handleFiles(@RequestParam("file") MultipartFile file) throws IOException {
 		String filename = file.getOriginalFilename();
+		if (filename == null)
+			return null;
 
 		if (filename.endsWith(".csv")) {
 			return new ResponseEntity<>(handleCsv(file), HttpStatus.OK);
