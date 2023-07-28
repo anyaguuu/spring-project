@@ -34,25 +34,32 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.beans.MyFirstBean;
+import app.beans.Repo;
 import app.services.AnyaService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AnyaController {
 	@Autowired
+	private final Repo repo;
 
-	@GetMapping("/testString")
-	public ResponseEntity<String> hello() {
-		return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+	public AnyaController(Repo repo) {
+		this.repo = repo;
+	}
+
+	@GetMapping("/beans")
+	public List<MyFirstBean> getBeans() {
+		return (List<MyFirstBean>) repo.findAll();
+	}
+
+	@PostMapping("/beans")
+	public void addUser(@RequestBody MyFirstBean bean) {
+		repo.save(bean);
 	}
 
 	@GetMapping("/getMyFirstBean")
 	public ResponseEntity<MyFirstBean> getMyFirstBean() {
 		MyFirstBean bean = new MyFirstBean("Anya", 2023, 1L);
-
-		// bean.setName("Anya");
-		// bean.setYear(2023);
-		// bean.setVersion(1L);
 
 		return new ResponseEntity<>(bean, HttpStatus.OK);
 	}
