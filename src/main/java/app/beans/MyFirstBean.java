@@ -9,9 +9,9 @@ import jakarta.persistence.Id;
 public class MyFirstBean {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	// @GeneratedValue(strategy = GenerationType.AUTO)
 	private String name; // the id
-	private int year;
+	private int yearNum;
 	private Long version;
 
 	public String getName() {
@@ -22,12 +22,12 @@ public class MyFirstBean {
 		this.name = name;
 	}
 
-	public int getYear() {
-		return year;
+	public int getYearNum() {
+		return yearNum;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
+	public void setYearNum(int year) {
+		this.yearNum = year;
 	}
 
 	public Long getVersion() {
@@ -40,7 +40,7 @@ public class MyFirstBean {
 
 	public MyFirstBean(String name, int year, Long version) {
 		this.name = name;
-		this.year = year;
+		this.yearNum = year;
 		this.version = version;
 	}
 

@@ -35,7 +35,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import app.beans.MyFirstBean;
 import app.beans.Repo;
-import app.services.AnyaService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -47,14 +46,15 @@ public class AnyaController {
 		this.repo = repo;
 	}
 
-	@GetMapping("/beans")
+	@GetMapping("/getBeans")
 	public List<MyFirstBean> getBeans() {
 		return (List<MyFirstBean>) repo.findAll();
 	}
 
-	@PostMapping("/beans")
-	public void addUser(@RequestBody MyFirstBean bean) {
+	@PostMapping("/addBean")
+	public ResponseEntity<String> addBean(@RequestBody MyFirstBean bean) {
 		repo.save(bean);
+		return new ResponseEntity<>("Added bean", HttpStatus.OK);
 	}
 
 	@GetMapping("/getMyFirstBean")
@@ -91,7 +91,7 @@ public class AnyaController {
 
 		List<MyFirstBean> lst = new ArrayList<>();
 		for (MyFirstBean bean : beans) {
-			lst.add(new MyFirstBean(bean.getName(), bean.getYear(), bean.getVersion()));
+			lst.add(new MyFirstBean(bean.getName(), bean.getYearNum(), bean.getVersion()));
 		}
 
 		return new ResponseEntity<>(lst, HttpStatus.OK);
@@ -107,7 +107,7 @@ public class AnyaController {
 		Map<String, Integer> map = new HashMap<>();
 
 		for (MyFirstBean bean : beans) {
-			map.put(bean.getName(), bean.getYear());
+			map.put(bean.getName(), bean.getYearNum());
 		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
 
@@ -122,7 +122,7 @@ public class AnyaController {
 	@PostMapping("/saveListWithStreams")
 	public ResponseEntity<List<MyFirstBean>> saveListWithStreams(@RequestBody List<MyFirstBean> beans) {
 		List<MyFirstBean> lst2 = beans.stream()
-				.map(bean -> new MyFirstBean(bean.getName(), bean.getYear(), bean.getVersion())).toList();
+				.map(bean -> new MyFirstBean(bean.getName(), bean.getYearNum(), bean.getVersion())).toList();
 		System.out.println("list made");
 		return new ResponseEntity<>(lst2, HttpStatus.OK);
 	}
