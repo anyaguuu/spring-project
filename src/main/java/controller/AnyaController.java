@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.beans.MyFirstBean;
+import app.beans.User;
 import app.beans.Repo;
 
 @RestController
@@ -47,52 +47,36 @@ public class AnyaController {
 		this.repo = repo;
 	}
 
-	@GetMapping("/getBeans")
-	public List<MyFirstBean> getBeans() {
-		return (List<MyFirstBean>) repo.findAll();
+	@GetMapping("/getUsers")
+	public List<User> getUsers() {
+		return (List<User>) repo.findAll();
 	}
 
-	@PostMapping("/addBean")
-	public ResponseEntity<String> addBean(@RequestBody MyFirstBean bean) {
-		repo.save(bean);
-		return new ResponseEntity<>("Added bean", HttpStatus.OK);
+	@PostMapping("/addUser")
+	public ResponseEntity<String> addUser(@RequestBody User user) {
+		repo.save(user);
+		return new ResponseEntity<>("Added user", HttpStatus.OK);
 	}
 
-	@GetMapping("/getMyFirstBean")
-	public ResponseEntity<MyFirstBean> getMyFirstBean() {
-		MyFirstBean bean = new MyFirstBean("Anya", 2023, 1L);
-
-		return new ResponseEntity<>(bean, HttpStatus.OK);
-	}
-
-	@PostMapping("/saveMyFirstBean")
-	public ResponseEntity<String> saveMyFirstBean(@RequestBody MyFirstBean bean) {
-
-		if (bean.getName() != null) {
-			return new ResponseEntity<>("Bean received for " + bean.getName(), HttpStatus.OK);
-		}
-		return new ResponseEntity<>("Invalid name received ", HttpStatus.BAD_REQUEST);
-	}
-
-	@GetMapping("/getBeanByParams")
-	public ResponseEntity<MyFirstBean> getBeanByParams(@RequestParam String name, @RequestParam int year,
+	@GetMapping("/getUserByParams")
+	public ResponseEntity<User> getUserByParams(@RequestParam String name, @RequestParam int year,
 			@RequestParam Long version) {
 
-		MyFirstBean bean = new MyFirstBean(name, year, version);
+		User user = new User(name, year, version);
 
-		// bean.setName(name);
-		// bean.setYear(year);
-		// bean.setVersion(version);
+		// user.setName(name);
+		// user.setYear(year);
+		// user.setVersion(version);
 
-		return new ResponseEntity<>(bean, HttpStatus.OK);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
-	@PostMapping("/saveMyFirstBeanList")
-	public ResponseEntity<List<MyFirstBean>> saveMyFirstBeanList(@RequestBody List<MyFirstBean> beans) {
+	@PostMapping("/saveMyFirstUserList")
+	public ResponseEntity<List<User>> saveMyFirstUserList(@RequestBody List<User> users) {
 
-		List<MyFirstBean> lst = new ArrayList<>();
-		for (MyFirstBean bean : beans) {
-			lst.add(new MyFirstBean(bean.getName(), bean.getYearNum(), bean.getVersion()));
+		List<User> lst = new ArrayList<>();
+		for (User user : users) {
+			lst.add(new User(user.getName(), user.getYearNum(), user.getVersion()));
 		}
 
 		return new ResponseEntity<>(lst, HttpStatus.OK);
@@ -102,13 +86,13 @@ public class AnyaController {
 	// different datatypes, calc on those numbers, etc.
 
 	@PostMapping("/useHashMap")
-	public ResponseEntity<Map<String, Integer>> useHashMap(@RequestBody List<MyFirstBean> beans) {
+	public ResponseEntity<Map<String, Integer>> useHashMap(@RequestBody List<User> users) {
 		// will map name to year
 
 		Map<String, Integer> map = new HashMap<>();
 
-		for (MyFirstBean bean : beans) {
-			map.put(bean.getName(), bean.getYearNum());
+		for (User user : users) {
+			map.put(user.getName(), user.getYearNum());
 		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
 
@@ -121,37 +105,37 @@ public class AnyaController {
 	}
 
 	@PostMapping("/saveListWithStreams")
-	public ResponseEntity<List<MyFirstBean>> saveListWithStreams(@RequestBody List<MyFirstBean> beans) {
-		List<MyFirstBean> lst2 = beans.stream()
-				.map(bean -> new MyFirstBean(bean.getName(), bean.getYearNum(), bean.getVersion())).toList();
+	public ResponseEntity<List<User>> saveListWithStreams(@RequestBody List<User> users) {
+		List<User> lst2 = users.stream()
+				.map(user -> new User(user.getName(), user.getYearNum(), user.getVersion())).toList();
 		System.out.println("list made");
 		return new ResponseEntity<>(lst2, HttpStatus.OK);
 	}
 
 	@GetMapping("/getUniqueNames")
-	public ResponseEntity<Set<String>> getUniqueNames(@RequestBody List<MyFirstBean> beans) {
+	public ResponseEntity<Set<String>> getUniqueNames(@RequestBody List<User> users) {
 		// get unique names
-		Set<String> uniqueNames = beans.stream().map(b -> b.getName()).collect(Collectors.toSet());
+		Set<String> uniqueNames = users.stream().map(b -> b.getName()).collect(Collectors.toSet());
 		return new ResponseEntity<>(uniqueNames, HttpStatus.OK);
 	}
 
 	@PostMapping("/useDequeAsQueue")
-	public ResponseEntity<Deque<String>> useDequeAsQueue(@RequestBody List<MyFirstBean> beans) {
+	public ResponseEntity<Deque<String>> useDequeAsQueue(@RequestBody List<User> users) {
 		// FIFO
 		Deque<String> names = new ArrayDeque<>();
-		for (int i = 0; i < beans.size(); i++) {
-			MyFirstBean bean = beans.get(i);
-			names.add(bean.getName());
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			names.add(user.getName());
 		}
 		return new ResponseEntity<>(names, HttpStatus.OK);
 	}
 
 	@GetMapping("/useDequeAsStack")
-	public ResponseEntity<Deque<String>> useDequeAsStack(@RequestBody List<MyFirstBean> beans) {
+	public ResponseEntity<Deque<String>> useDequeAsStack(@RequestBody List<User> users) {
 		// LIFO
 		Deque<String> names = new ArrayDeque<>();
-		for (MyFirstBean bean : beans) {
-			names.push(bean.getName());
+		for (User user : users) {
+			names.push(user.getName());
 		}
 		return new ResponseEntity<>(names, HttpStatus.OK);
 	}
@@ -277,8 +261,8 @@ public class AnyaController {
 	}
 
 	@PostMapping("/listToMap")
-	public ResponseEntity<Map<String, MyFirstBean>> listToMap(@RequestBody List<MyFirstBean> lst) {
-		Map<String, MyFirstBean> map = lst.stream().collect(Collectors.toMap(bean -> bean.getName(), bean -> bean));
+	public ResponseEntity<Map<String, User>> listToMap(@RequestBody List<User> lst) {
+		Map<String, User> map = lst.stream().collect(Collectors.toMap(user -> user.getName(), user -> user));
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 }

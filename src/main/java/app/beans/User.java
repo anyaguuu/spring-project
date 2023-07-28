@@ -1,12 +1,13 @@
 package app.beans;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class MyFirstBean {
+@Table(name = "app_users")
+public class User {
 
 	@Id
 	// @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,13 +39,13 @@ public class MyFirstBean {
 		this.version = version;
 	}
 
-	public MyFirstBean(String name, int year, Long version) {
+	public User(String name, int year, Long version) {
 		this.name = name;
 		this.yearNum = year;
 		this.version = version;
 	}
 
-	public MyFirstBean() {
+	public User() {
 
 	}
 

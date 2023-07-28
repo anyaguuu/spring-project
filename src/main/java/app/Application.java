@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-import app.beans.MyFirstBean;
+import app.beans.User;
 import app.beans.Repo;
 import controller.AnyaController;
 
@@ -24,8 +24,8 @@ public class Application {
 	CommandLineRunner init(Repo repo) {
 		return args -> {
 			Stream.of("Rachel", "Monica", "Phoebe", "Joey", "Ross", "Chandler").forEach(name -> {
-				MyFirstBean bean = new MyFirstBean(name, 1990, 20L);
-				repo.save(bean);
+				User user = new User(name, 1990, 20L);
+				repo.save(user);
 			});
 			repo.findAll().forEach(System.out::println);
 		};
