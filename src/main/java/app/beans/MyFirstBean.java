@@ -48,4 +48,8 @@ public class MyFirstBean {
 
 	}
 
+	public String toString() {
+		return this.getName();
+	}
+
 }
