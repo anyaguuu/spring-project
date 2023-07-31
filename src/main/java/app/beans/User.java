@@ -13,7 +13,7 @@ public class User {
 	// @GeneratedValue(strategy = GenerationType.AUTO)
 	private String name; // the id
 	private int yearNum;
-	private Long version;
+	private int version;
 
 	public String getName() {
 		return name;
@@ -27,21 +27,21 @@ public class User {
 		return yearNum;
 	}
 
-	public void setYearNum(int year) {
-		this.yearNum = year;
+	public void setYearNum(int yearNum) {
+		this.yearNum = yearNum;
 	}
 
-	public Long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(Long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 
-	public User(String name, int year, Long version) {
+	public User(String name, int yearNum, int version) {
 		this.name = name;
-		this.yearNum = year;
+		this.yearNum = yearNum;
 		this.version = version;
 	}
 

@@ -3,15 +3,16 @@
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Year</th>
+          <th scope="col">Version</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users">
           <td>{{ user.name }}</td>
-          <td>{{ user.year }}</td>
+          <td>{{ user.yearNum }}</td>
+          <td>{{ user.version }}</td>
           <!-- <td>
             <a href="mailto:{{ user.email }}">{{ user.email }}</a>
           </td> -->

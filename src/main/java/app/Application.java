@@ -24,7 +24,7 @@ public class Application {
 	CommandLineRunner init(Repo repo) {
 		return args -> {
 			Stream.of("Rachel", "Monica", "Phoebe", "Joey", "Ross", "Chandler").forEach(name -> {
-				User user = new User(name, 1990, 20L);
+				User user = new User(name, 1990, 20);
 				repo.save(user);
 			});
 			repo.findAll().forEach(System.out::println);

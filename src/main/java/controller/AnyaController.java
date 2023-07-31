@@ -60,7 +60,7 @@ public class AnyaController {
 
 	@GetMapping("/getUserByParams")
 	public ResponseEntity<User> getUserByParams(@RequestParam String name, @RequestParam int year,
-			@RequestParam Long version) {
+			@RequestParam int version) {
 
 		User user = new User(name, year, version);
 
